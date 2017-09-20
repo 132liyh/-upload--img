@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+	<style type="text/css">
+		*
+		{
+			margin: 0;
+			padding: 0;
+		}
+		.cutimg {
+			display: none;
+			position: fixed;
+			width: 100vw;
+			height: 100vh;
+			z-index: 999;
+			top: 0;
+			background: rgba(0, 0, 0, 0.2);
+		}
+		
+		#cutBox {
+			background: rgba(255, 255, 255, 0.8);
+			position: absolute;
+			width: 150px;
+			height: 200px;
+			opacity: 0.5;
+		}
+		
+		.tips {
+			color: green;
+		}
+		
+		.save {
+			width: 100px;
+		}
+		.mui-text-center
+		{
+			text-align: center;
+			margin-top: 3em;
+		}
+	</style>
+
+	<body>
+		<img src=""/ class="user_headimg">
+		<!--裁剪-->
+		<input type="button" id="browseFile" value="选择图片" />
+		<div class="cutimg">
+			<div id="wrapper" style="border: 1px gray dotted; padding: 25px;">
+
+				<div id="component_box" style="position: relative; border: 1px green solid; width: 300px; height: 300px;">
+					<div id="tipBox" style="display: none;">
+						<img src="" />
+					</div>
+					<div id="mainCutter" style="overflow: hidden; display: none; position: relative;">
+						<img id="imgPreview" />
+						<div id="cutBox"></div>
+					</div>
+				</div>
+
+				<!--画布-->
+
+				<canvas id="cropper" style=" display:none;border:1px solid red; width: 300px; height: 300px;"></canvas>
+			</div>
+			<div class="tipsdiv">
+				<p class="tips">左右滑动控制裁剪区大小</p>
+				<!--调整用slider-->
+				<div>
+					<div id="processBar" style=" margin: 0 auto; position: relative; width: 220px; height: 20px; background: green;">
+					</div>
+				</div>
+				<div class=" mui-text-center">
+					<input type="button" class="save" id="saveimg" value="确定" />
+					<input type="button" class="save" id="clearimg" value="取消" />
+				</div>
+			</div>
+		</div>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script type="text/javascript" src="cut.js" ></script>
+		<script type="text/javascript" src="img.js" ></script>
+		<script type="text/javascript">
+			$("#saveimg").click(function() {
+				var imgData = _getCutImageData();
+				if(Options.initStatus == false) {
+					alert("请先选择图片！");
+					return;
+				}
+				document.querySelector(".cutimg").style['display']='none';	
+				console.log(imgData)
+				document.querySelector(".user_headimg").setAttribute("src", imgData);
+			});
+			
+			$("#clearimg").click(function() {
+				var imgData = "";
+				if(Options.initStatus == false) {
+					alert("请先选择图片！");
+					return;
+				}
+				document.querySelector(".cutimg").style['display']='none';	
+				document.querySelector(".user_headimg").setAttribute("src", imgData);
+			});
+		</script>
+	</body>
+
+</html>
